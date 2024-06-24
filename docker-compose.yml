@@ -1,0 +1,43 @@
+services:
+  api:
+    container_name: ${PROJECT_NAME}__api--${ENV}
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - "./api/pocketbase-data:/pb/pb_data" # Attaches pb_data to a volume named 'pocketbase-data' on your current directory
+    env_file:
+      - .env
+
+  web:
+    container_name: ${PROJECT_NAME}__web--${ENV}
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./web/src:/app/src
+      - ./web/public:/app/public
+    depends_on:
+      - api
+    env_file:
+      - .env
+
+  nginx:
+    container_name: ${PROJECT_NAME}__load-balancer--${ENV}
+    image: nginx:stable
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/logs:/var/log/nginx
+      - ./nginx/ssl:/etc/nginx/ssl
+    ports:
+      - 443:443
+      - 80:80
+    depends_on:
+      - api
+      - web
