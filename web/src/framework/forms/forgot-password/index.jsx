@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { Input, Button, Typography } from "@material-tailwind/react";
 import { useFormik } from "formik";
-import formConfig from "./sign-in.config";
-import { useAuth } from "@/framework/context/auth.context";
+import formConfig from "./forgot-password.config";
 
-const ERROR_MESSAGE_TIMEOUT = 5000;
+const MESSAGE_TIMEOUT = 5000;
 
-export const SignInForm = () => {
+export const ForgotPasswordForm = () => {
     const [formErrors, setFormErrors] = useState("");
-    const navigate = useNavigate();
-    const { setUser } = useAuth();
+    const [successMessage, setSuccessMessage] = useState("");
 
     const formik = useFormik(
         formConfig({
@@ -19,12 +15,14 @@ export const SignInForm = () => {
                 setFormErrors(msg);
                 setTimeout(() => {
                     setFormErrors("");
-                }, ERROR_MESSAGE_TIMEOUT);
+                }, MESSAGE_TIMEOUT);
             },
-            onSuccess: (data) => {
-                const { record } = data;
-                setUser(record);
-                navigate("/dashboard/home");
+            onSuccess: () => {
+                formik.resetForm();
+                setSuccessMessage("Request sent. Check your email.");
+                setTimeout(() => {
+                    setSuccessMessage("");
+                }, MESSAGE_TIMEOUT);
             },
         })
     );
@@ -60,27 +58,6 @@ export const SignInForm = () => {
                         {showError("email") ? formik.errors.email : ""}
                     </Typography>
                 </div>
-                <div>
-                    <Input
-                        type="password"
-                        name="password"
-                        size="lg"
-                        label="Password"
-                        autoComplete="current-password"
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        error={showError("password")}
-                        aria-describedby="pw-desc"
-                    />
-                    <Typography
-                        className="mt-1 min-h-1 text-xs"
-                        variant="small"
-                        color="red"
-                        id="pw-desc"
-                    >
-                        {showError("password") ? formik.errors.password : ""}
-                    </Typography>
-                </div>
             </div>
 
             <Button
@@ -89,7 +66,7 @@ export const SignInForm = () => {
                 className="mt-6"
                 fullWidth
             >
-                {formik.isSubmitting ? "Signing in..." : "Sign In"}
+                {formik.isSubmitting ? "Signing in..." : "Submit"}
             </Button>
             {formErrors && (
                 <Typography
@@ -100,8 +77,17 @@ export const SignInForm = () => {
                     {formErrors}
                 </Typography>
             )}
+            {successMessage && (
+                <Typography
+                    className="text-center py-2 "
+                    color="green"
+                    variant="small"
+                >
+                    {successMessage}
+                </Typography>
+            )}
         </form>
     );
 };
 
-export default SignInForm;
+export default ForgotPasswordForm;

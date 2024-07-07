@@ -5,7 +5,7 @@ import formConfig from "./sign-up.config";
 
 const ERROR_MESSAGE_TIMEOUT = 5000;
 
-export const SignInForm = ({ onLoginSuccess }) => {
+export const SignInForm = () => {
     const [formErrors, setFormErrors] = useState("");
 
     const formik = useFormik(

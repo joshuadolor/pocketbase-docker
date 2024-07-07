@@ -25,7 +25,9 @@ export function SignIn() {
                             variant="small"
                             className="font-medium text-gray-900"
                         >
-                            <a href="#">Forgot Password</a>
+                            <Link to="/auth/forgot-password">
+                                Forgot Password
+                            </Link>
                         </Typography>
                     </div>
                     <div className="space-y-4 mt-8">

@@ -12,8 +12,9 @@ class AccountService {
     return data;
   }
 
-  async forgotPassword() {
-
+  async forgotPassword(request) {
+    const { data } = await this.client.post('/collections/users/request-password-reset', request.toJSON())
+    return data;
   }
 
   async changePassword() {
