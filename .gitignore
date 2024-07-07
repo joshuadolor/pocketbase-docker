@@ -1,4 +1,5 @@
-/api/pocketbase-data/*
+/api/pb_data/*
 /nginx/logs/*
 /nginx/ssl/*
+/**/node_modules/*
 .env
