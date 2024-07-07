@@ -18,7 +18,7 @@ export function SignUp() {
                     className="h-full w-full object-cover rounded-3xl"
                 />
             </div>
-            <div className="w-full lg:w-3/5 mt-24">
+            <div className="w-full lg:w-3/5 mt-24 lg:px-40">
                 <div className="text-center">
                     <Typography variant="h2" className="font-bold mb-4">
                         Join Us Today

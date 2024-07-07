@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export function ForgotPassword() {
     return (
         <section className="m-8 flex gap-4 relative">
-            <div className="w-full lg:w-3/5 mt-24">
+            <div className="w-full lg:w-3/5 mt-24 lg:px-40">
                 <div className="text-center">
                     <Typography variant="h2" className="font-bold mb-4">
                         Forgot your Password?
