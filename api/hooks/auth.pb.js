@@ -28,5 +28,4 @@ routerAdd("POST", "/api/auth/refresh", (c) => {
 onRecordAfterAuthWithPasswordRequest((e) => {
     const token = require(`${__hooks}/utils/token.js`)
     token.attachRefreshTokenToCookie(e.httpContext, { id: e.record.id })
-    e.record.set('id', $security.pseudorandomString(12))
 }, "users")
