@@ -13,7 +13,6 @@ import { useAuth } from "@/framework/context/auth.context";
 export function Sidenav({ brandImg, brandName, routes }) {
     const [controller, dispatch] = useMaterialTailwindController();
     const { user } = useAuth();
-    console.log(user);
     const { sidenavColor, sidenavType, openSidenav } = controller;
     const sidenavTypes = {
         dark: "bg-gradient-to-br from-gray-800 to-gray-900",

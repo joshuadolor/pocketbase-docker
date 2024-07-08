@@ -17,9 +17,6 @@ class AccountService {
     return data;
   }
 
-  async changePassword() {
-
-  }
 }
 
 export default new AccountService();

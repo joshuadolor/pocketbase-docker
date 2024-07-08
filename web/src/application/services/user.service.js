@@ -1,6 +1,7 @@
 import ApiClient from '@/infrastructure/client/api.client';
 import AuthClient from '@/infrastructure/client/auth.client';
 import User from '@/application/models/user.model';
+import { setAccessToken } from '@/infrastructure/utils/token-manager';
 
 class UserService {
     constructor() {
@@ -18,13 +19,13 @@ class UserService {
         return new User(data);
     }
 
-    suspendUser(userId) {
-        // return this.userService.deactivateUser(userId);
+    async refreshToken() {
+        const { data } = await this.authClient.post('/auth/refresh')
+        const { token } = data;
+        setAccessToken(token);
+        return token;
     }
 
-    getUserProfile(userId) {
-        // return this.userService.getUserById(userId);
-    }
 }
 
 export default new UserService();

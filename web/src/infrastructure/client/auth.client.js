@@ -1,10 +1,11 @@
 import ApiClient from '@/infrastructure/client/api.client';
+import { setupInterceptors } from '@/infrastructure/client/interceptors/token.interceptor';
 import { getAccessToken } from '@/infrastructure/utils/token-manager';
-
 class AuthApiClient extends ApiClient {
     constructor() {
         super();
         this.token = getAccessToken();
+        setupInterceptors(this.httpClient)
     }
 
     get(url, config = {}) {

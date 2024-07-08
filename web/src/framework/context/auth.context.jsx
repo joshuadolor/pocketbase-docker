@@ -30,21 +30,21 @@ export const AuthProvider = ({ children }) => {
         navigate(SIGNIN_PATH);
     };
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                setIsLoading(true);
-                const userData = await userService.getCurrentUser();
-                setUser(userData);
-                setIsLoading(false);
-                if (inAuthPage()) {
-                    navigate(DASHBOARD_PATH);
-                }
-            } catch (error) {
-                signOutUser();
+    const fetchUser = async () => {
+        try {
+            setIsLoading(true);
+            const userData = await userService.getCurrentUser();
+            setUser(userData);
+            setIsLoading(false);
+            if (inAuthPage()) {
+                navigate(DASHBOARD_PATH);
             }
-        };
+        } catch (error) {
+            signOutUser();
+        }
+    };
 
+    useEffect(() => {
         if (user) {
             setIsLoading(false);
             if (inAuthPage()) {
